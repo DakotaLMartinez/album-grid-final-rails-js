@@ -9,4 +9,5 @@ class LastfmService
     response = Typhoeus.get("#{BASE_URL}?method=album.getinfo&api_key=#{ENV['LAST_FM_API_KEY']}&mbid=#{mbid}&format=json")
     results = JSON.parse(response.response_body)
   end
+
 end
