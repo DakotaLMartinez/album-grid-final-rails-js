@@ -55,3 +55,7 @@ Eventually we'll need to add has_many serialization so we're getting that data n
 
 
 Maybe use this endpoint? http://ws.audioscrobbler.com/2.0/?method=tag.gettopalbums&tag=soul&api_key=API_KEY_HERE&format=json
+
+3/5/2020 Part2
+
+We're going to add seeds. First we'll create another method in our service that connects to the topalbums endpoint and create the top soul albums and add their tracks. Next we'll use that method to get those albums and then call the AlbumImporter with the mbid of each of those albums so that the Album and Track records are created in our database.
