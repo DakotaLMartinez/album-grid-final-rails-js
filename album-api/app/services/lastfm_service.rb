@@ -10,4 +10,9 @@ class LastfmService
     results = JSON.parse(response.response_body)
   end
 
+  def self.top_albums_by_genre(genre)
+    response = Typhoeus.get("#{BASE_URL}?method=tag.gettopalbums&tag=#{genre}&api_key=#{ENV['LAST_FM_API_KEY']}&format=json")
+    results = JSON.parse(response.response_body).try(:[],"albums").try(:[], "album")
+  end
+
 end

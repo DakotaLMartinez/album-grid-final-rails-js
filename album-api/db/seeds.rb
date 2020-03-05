@@ -5,3 +5,6 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+LastfmService.top_albums_by_genre('soul').each do |album_hash|
+  AlbumImporter.import(album_hash["mbid"])
+end
