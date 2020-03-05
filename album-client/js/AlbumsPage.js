@@ -1,7 +1,7 @@
 class AlbumsPage {
 
-  constructor() {
-    this.albums = []
+  constructor(albums) {
+    this.albums = albums
     this.formState = {
       title: '',
       artist_name: ''
@@ -25,10 +25,17 @@ class AlbumsPage {
     `
   }
 
+  renderList() {
+    return this.albums.reduce((html, album) => html + album.renderCard().outerHTML, '')
+  }
+
   render() {
     return `
       <h1>Hello from AlbumsPage</h1>
       ${this.renderForm()}
+      <section id="albumsGrid">
+        ${this.renderList()}
+      </section>
     `
   }
 }

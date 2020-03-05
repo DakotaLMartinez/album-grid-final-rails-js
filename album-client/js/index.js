@@ -1,8 +1,21 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded',  () => {
   let root = document.getElementById('root')
-  root.innerHTML = new AlbumsPage().render()
+  Album.getAll().then(albums => {
+    root.innerHTML = new AlbumsPage(albums).render()
+  })
+  
+
+  attachListeners()
 })
 
+const attachListeners = () => {
+  document.addEventListener('click', (e) => {
+    if(e.target.matches('a')) {
+      e.preventDefault();
+      window.location.href = e.target.href;
+    }
+  })
+}
 let songsInTheKeyOfLife = new Album({
   id: 1,
   title: "Songs in the Key of Life",
