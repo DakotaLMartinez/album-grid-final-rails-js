@@ -15,6 +15,7 @@ class AlbumImporter
         track_attributes[:last_fm_url] = track['url']
         track_attributes[:artist_name] = track['artist']['name']
         track_attributes[:artist_mbid] = track['artist']['mbid']
+        track_attributes[:album_mbid] = results['album']['mbid']
         album.tracks.find_or_create_by(track_attributes)
       end
     end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_03_223858) do
+ActiveRecord::Schema.define(version: 2020_03_05_021216) do
 
   create_table "albums", force: :cascade do |t|
     t.string "title"
@@ -30,6 +30,9 @@ ActiveRecord::Schema.define(version: 2020_03_03_223858) do
     t.string "album_mbid"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "album_id"
+    t.index ["album_id"], name: "index_tracks_on_album_id"
   end
 
+  add_foreign_key "tracks", "albums"
 end
