@@ -7,13 +7,22 @@ class Album {
     this.mbid = mbid
   }
 
-  imageHtml() {
-    return `<img src="${this.image_url}" />`
+  static getAll() {
+    if(Album.all.length === 0) {
+      return AlbumAPI.getAlbums().then(albums => {
+        Album.all = albums.map(albumAttributes => 
+          new Album(albumAttributes)
+        )
+        return Album.all
+      })
+    } else {
+      return Promise.resolve(Album.all)
+    }
   }
 
   renderCard() {
     let article = document.createElement('article')
-    article.class = "fl w-100 w-50-m  w-25-ns pa2-ns"
+    article.className = "fl w-100 w-50-m  w-25-ns pa2-ns"
     article.dataset['album_id'] = this.mbid
     article.innerHTML = `
       <div class="aspect-ratio aspect-ratio--1x1">
@@ -26,6 +35,8 @@ class Album {
       </a>
       <p><button class="editAlbum" data-id="${this.id}">Edit Album</button></p>
     `
-    return article
+    return article.outerHTML
   }
 }
+
+Album.all = []

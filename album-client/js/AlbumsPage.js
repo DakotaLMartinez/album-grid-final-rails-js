@@ -1,7 +1,7 @@
 class AlbumsPage {
 
-  constructor() {
-    this.albums = []
+  constructor(albums) {
+    this.albums = albums
     this.formState = {
       title: '',
       artist_name: ''
@@ -25,10 +25,17 @@ class AlbumsPage {
     `
   }
 
+  renderList() {
+    return this.albums.map(album => {
+      return album.renderCard()
+    }).join('')
+  }
+
   render() {
     return `
       <h1>Hello from AlbumsPage</h1>
       ${this.renderForm()}
+      ${this.renderList()}
     `
   }
 }

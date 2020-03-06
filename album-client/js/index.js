@@ -1,14 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
   let root = document.getElementById('root')
-  root.innerHTML = new AlbumsPage().render()
+  root.innerHTML = loadingGif()
+  Album.getAll().then(albums => {
+    root.innerHTML = new AlbumsPage(albums).render()
+  })
 })
 
-let songsInTheKeyOfLife = new Album({
-  id: 1,
-  title: "Songs in the Key of Life",
-  artist_name: "Stevie Wonder",
-  image_url: "https://lastfm.freetls.fastly.net/i/u/300x300/89082b98c5c94310c3335e272e9da9db.png",
-  mbid: "ab7b0bf0-b5df-40b5-be73-b121daef595a",
-  created_at: "2020-03-03T23:18:37.393Z",
-  updated_at: "2020-03-03T23:18:37.393Z"
-})
+const loadingGif = () => {
+  let loading = document.createElement('img')
+  loading.src = 'https://i.giphy.com/media/y1ZBcOGOOtlpC/giphy.webp'
+  return loading.outerHTML
+}
