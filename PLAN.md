@@ -98,8 +98,8 @@ Album.all.map(album => album.title)
 - Configure rack-cors gem to allow for our front end to connect to the Rails API
 - Add `AlbumAPI` class that can make a request to our API and return JSON formatted data.
 - Add an `all` class variable to the `Album` and a `getAll()` static method that makes a request to our API returns a promise to return an array of album instances.
-- Add logic to our `AlbumsPage` class to render the list of albums.
-- Add to the `DOMContentLoaded` event handler in index.js to get the Albums using `Album.getAll() and then add the AlbumsPage to the root node.
+- Add logic to our `AlbumsPage` class to render the list of albums. We also adjusted that class to take albums as a parameter in the constructor.
+- Add to the `DOMContentLoaded` event handler in index.js to get the Albums using `Album.getAll()` and then passed the albums to  `AlbumsPage` and rendered it to the root node.
 
 Add Serializers for Albums to handle the index and show endpoints.
 ```
@@ -121,6 +121,10 @@ In AlbumsController show action
 ```
 
 To get our API to work we'll also need to add the rack-cors gem and add the configuration in config/initializers/cors.rb
+
+``` 
+bundle add rack-cors
+```
 
 ```
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
