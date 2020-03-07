@@ -1,3 +1,26 @@
+## Class responsibilities
+
+### AlbumAPI
+This class is used for communicating with our API and formatting the responses in such a way that we can easily create instances of our ViewModel classes (Album & Track). 
+### Album 
+- This class is a view model for Albums. It will store all of the attributes we need to display an album in the two different contexts in which it will appear. We'll have separate methods for displaying an album on the show page, vs the grid page. 
+- We will also persist Albums using a `save()` method so that we don't have to fetch the same album from the database multiple times. 
+- Album could also have a static `findOrCreateBy` method (maybe?)
+- Because we're saving Albums, we'll also have static methods that we can use to find stored albums. (This will be useful for example when we want to see the show page for an album, we can click on a link that has a data attribute pointing to the Album's id, and we can use that id to find the existing album, so we can get the markup for the show page for that album.)
+- Album will have a `getTracks()` method that will get the tracks for this album (if necessary)
+- Album will have a `tracks()` method that will look through `Track.all` to find all of the tracks that match that album's id.
+## Track 
+- This class is a view model for Tracks. It will store all of the attributes we needt o display a track on the album show page. We could have a tracks index, which might have a different view (this would want to include the album and artist name as well)
+- Track will have a `save()` method to handle persistence and we'll have a `findOrCreateBy` method that make sure we don't add the same track more than once.
+## AlbumsPage
+- This class renders the home page of our app, it needs albums to do so, and receives them as an argument in the constructor.
+## AlbumShowPage
+- This class renders the album show page of our app, it needs an album (that has tracks) to do so, it receives the album as an argument in the constructor.
+## Event Listeners
+- Decide which instances are necessary at different moments in our workflow and handle actually doing DOM manipulations. 
+- We'll have click, submit, and change event listeners and we'll handle them each appropriately by checking what kind of element we targeted with the event (using a css selector that we match with the `e.target.matches('.css-selector')` technique)
+
+
 ### UIState
 AlbumAPI
 
