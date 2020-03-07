@@ -22,3 +22,8 @@
 ## AlbumShowPage
 - renderTrackList() - returns html string for the ul containing all the tracks
 - render() - returns html for album show page in entirety.
+
+## Event Listeners
+- click
+  - .albumShow - replaces root node's innerHTML with AlbumShow page for album (found via data-attribute for albumId)
+  - .albumsIndex - replaces root node's innerHTML with AlbumsPage(Album.all)
