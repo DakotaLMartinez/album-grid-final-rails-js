@@ -39,6 +39,18 @@ class AlbumAPI {
         
       })
   }
+
+  static createAlbum(albumAttributes) {
+    return fetch(`${AlbumAPI.base_url}/albums`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(albumAttributes)
+    })
+      .then(res => res.json())
+  }
 }
 
 AlbumAPI.base_url = "http://localhost:3000"
@@ -67,6 +79,18 @@ class Album {
 
   static findById(id) {
     return Album.all.find(album => album.id == id)
+  }
+
+  static create(albumAttributes) {
+    return AlbumAPI.createAlbum(albumAttributes)
+      .then(albumJSON => {
+        return new Album(albumJSON).save()
+      })
+  }
+
+  save() {
+    Album.all.push(this)
+    return this
   }
 
   getAlbumDetails() {
@@ -141,10 +165,6 @@ class AlbumsPage {
 
   constructor(albums) {
     this.albums = albums
-    this.formState = {
-      title: '',
-      artist_name: ''
-    }
   }
 
   renderForm() {
@@ -153,11 +173,15 @@ class AlbumsPage {
         <h3>Add Album</h3>
         <p>
           <label class="db">Title</label>
-          <input type="text" name="title" value="${this.formState.title}" />
+          <input type="text" name="title" id="title" />
         </p>
         <p>
           <label class="db">Artist Name</label>
-          <input type="text" name="artist_name" value="${this.formState.artist_name}" />
+          <input type="text" name="artist_name" id="artist_name" />
+        </p>
+        <p>
+          <label class="db">Image URL</label>
+          <input type="text" name="image_url" id="image_url" />
         </p>
         <input type="submit" value="Add Album" />
       </form>
@@ -174,7 +198,9 @@ class AlbumsPage {
     return `
       <h1>Hello from AlbumsPage</h1>
       ${this.renderForm()}
-      ${this.renderList()}
+      <section id="albums">
+        ${this.renderList()}
+      </section>
     `
   }
 }
@@ -187,6 +213,7 @@ class AlbumShowPage {
   renderTrackList() {
     // this method should 
     let ul = document.createElement('ul')
+    ul.id = "trackList"
     // iterate over the tracks and add a list item to the ul for each one (using appendChild)
     this.album.tracks().forEach(track => {
       ul.insertAdjacentHTML('beforeend', track.render())
@@ -225,6 +252,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if(e.target.matches('.albumsIndex')) {
       root.innerHTML = new AlbumsPage(Album.all).render()
+    }
+  })
+  document.addEventListener('submit', (e) => {
+    e.preventDefault()
+    if(e.target.matches('.addAlbum')) {
+      let formData = {}
+      e.target.querySelectorAll('input[type="text"]').forEach(input => formData[input.id] = input.value)
+      Album.create(formData)
+        .then(album => {
+          document.querySelector('#albums').insertAdjacentHTML('beforeend', album.renderCard())
+        })
     }
   })
 })
