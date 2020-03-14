@@ -38,7 +38,7 @@ document.addEventListener('click', (e) => {
   }
 })
 ```
-3/3/2020
+
 Done so Far:
 - 2 models with restful routes (Album and Track) Currently they're related using foreign keys that come from last.fm. I think we're going to change that
 - we have an index.html file that loads up tachyons and our 3 script files `AlbumsPage.js`, `Album.js` and `index.js`
