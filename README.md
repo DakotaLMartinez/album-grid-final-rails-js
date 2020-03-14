@@ -53,5 +53,3 @@ For next time:
 
 Eventually we'll need to add has_many serialization so we're getting that data nested from our API. (So we'll add a serializer to do that). We might end up adding comments to albums
 
-
-Maybe use this endpoint? http://ws.audioscrobbler.com/2.0/?method=tag.gettopalbums&tag=soul&api_key=API_KEY_HERE&format=json
